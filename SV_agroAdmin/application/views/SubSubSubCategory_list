@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+<?php include('public/header.php');?>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+
+  <!-- Preloader -->
+  <div class="preloader flex-column justify-content-center align-items-center">
+    <img class="" src="" alt="" height="" width="">
+  </div>
+
+  <!-- Navbar -->
+  <?php include('public/navbar.php');?>
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  
+  
+    
+    <!-- /.sidebar -->
+  <?php include('public/sidebar.php');?>
+   <!-- Content Wrapper. Contains page content -->
+   <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+        
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+ <div class="container-fluid">
+
+
+       <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <center><h3 class="card-title"><b>SubSubSubcategory List</b></h3><center>
+                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModalAdd" data-whatever="@getbootstrap" style="float:right"><i class="fa fa-plus"></i> ADD </button>
+               
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table id="example1" class="table table-bordered table-hover">
+                  <thead>
+                  <tr>
+                    <th>SR.NO</th>
+                    <th>CATEGORY</th>
+                    <th>SUBCATEGORY</th>
+                    <th>SUBSUBCATEGORY</th>
+                    <th>TITLE</th>
+                    <th>STATUS</th>
+                    <th>ACTION</th>
+                  </thead>
+                  
+                  <tr>
+                     <tbody>
+                    <?php 
+                  $i=1;
+                   foreach($fetch as $row){
+                   $id = $row['id']; 
+                  ?>
+                  <tr>
+                    <td><?php echo $i; ?></td>
+                    <td><?php echo $row['c_id']; ?></td>
+                    <td><?php echo $row['subc_id']; ?></td>
+                    <td><?php echo $row['subsubc_id']; ?></td>
+                    <td><?php echo $row['title']; ?></td>
+                    <td>
+                   <?php $status = $row['status']; 
+                     if ($status == 'Active') {?> 
+                     <a href="<?php echo base_url().'SubSubSubCategory/status_update/'.$id;?>" class="btn btn-success"><?php echo $status;?></a> 
+                     <?php } else {?> 
+                     <a href="<?php echo base_url().'SubSubSubCategory/status_update/'.$id;?>"class="btn btn-danger"><?php echo $status;?></a> 
+                    <?php } ?> 
+                    <td>
+                    <button type="button" class="btn btn-danger" title="Update" data-toggle="modal" data-target="#exampleModal<?php echo $id;?>" data-whatever="@getbootstrap"><i class="fa fa-edit"></i></button>
+                 </tr>
+               </td>
+             </tr>
+              </tbody>
+             <div class="modal fade" id="exampleModal<?php echo $id;?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+           <div class="modal-dialog  modal-lg">
+        <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">UPDATE SUBSUBSUB_CATAGORY</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <form  method="POST" action="<?php echo base_url().'SubSubSubCategory/SubSubSubCategory_update'; ?>" class="form" id="form">
+        <input type="hidden" name="id" name="fname" value="<?php echo $row['id'];?>">
+                       
+      <div class="form-group">
+                  <label for="exampleSelectRounded0">CATEGORY</label>
+                  <select class="custom-select rounded-0" id="exampleSelectRounded0" name="c_id" required>
+                    <option value="">Select Category</option>
+                  <?php foreach($category as $value){ ?> 
+                   <option value="<?php echo $value['id']; ?>"<?php if($value['id']==$row['c_id']){echo 'Selected'; } ?> ><?php echo $value['title']; ?></option>
+                  <?php } ?>
+                  </select>
+            </div>
+          
+            <div class="form-group">
+                  <label for="exampleSelectRounded0">SUBSUB_CATEGORY</label>
+                  <select class="custom-select rounded-0" id="exampleSelectRounded0" required>
+                  </select>
+            </div>
+
+            <div class="form-group">
+                  <label for="exampleSelectRounded0">SUBSUBSUB_CATEGORY</label>
+                  <select class="custom-select rounded-0" id="exampleSelectRounded0" required>
+                  </select>
+            </div>
+              <div class="form-group">
+             <label>SUBSUBSUB_CATAGORY TITLE</label>
+             <input type="text" class="form-control" id="title1" name="title"   placeholder="Enter Catagory Title" required>
+          </div>
+          </div>
+          <center><button type="submit" class="btn btn-danger">UPDATE</button></center><br>
+      </form>
+    </div>
+  </div>
+</div>
+
+           </tbody>
+                <?php $i++; } ?>
+              </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+         </table>
+        </div>
+              <!-- /.card-body -->
+        </div>
+            <!-- /.card -->
+        </div>
+           
+
+ 
+  <!-- /.content-wrapper -->
+
+  <div class="modal fade" id="exampleModalAdd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog  modal-lg">
+   <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">ADD SUBSUBSUB_CATAGORY</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <form  method="POST" action="<?php echo base_url().'SubSubSubCategory/add_subsubsubcategory'; ?>"  class="form" id="form">
+            <div class="form-group">
+                  <label for="exampleSelectRounded0">CATEGORY</label>
+                  <select class="custom-select rounded-0" name="c_id" id="SELECT_MAIN_CATEGORY" required>
+                  <?php 
+                  foreach($category as $row)
+                  { 
+                    echo '<option value="'.$row['id'].'">'.$row['title'].'</option>';
+                   }
+                 ?>
+                  </select>
+            </div>
+            <div class="form-group">
+              <label for="exampleSelectRounded0">SUB_CATEGORY</label>
+              <select class="custom-select rounded-0" name="subc_id" id="get_subcategory_output" required>
+              <option value="">select subcatagory</option>
+           </select>
+           </div>
+
+            <div class="form-group">
+              <label for="exampleSelectRounded0">SUBSUB_CATEGORY</label>
+              <select class="custom-select rounded-0" name="subsubc_id" id="get_subcategory_output" required>
+              <option value="">select subsubcatagory</option>
+            </select>
+            </div>
+
+        <div class="form-group">
+             <label> TITLE</label>
+             <input type="text" class="form-control" id="title" name="title" placeholder="Enter Sub_Sub Catagory Title" required>
+         </div>
+      
+         <center><button type="submit" class="btn btn-danger">ADD</button></center><br>
+      </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  <!-- Control Sidebar -->
+  
+<?php include('public/script.php');?>
+<script>
+function testInput(event) {
+   var value = String.fromCharCode(event.which);
+   var pattern = new RegExp(/[a-zåäö ]/i);
+   return pattern.test(value);
+}
+$('#my-field').bind('keypress', testInput);
+</script>
+</body>
+
+ <!-- Script -->
+ 
+ 
+  <script type='text/javascript'>
+  
+  $(document).ready(function(){
+ 
+    // catagory change
+    $('#SELECT_MAIN_CATEGORY').change(function(){
+      //alert('hi');
+      var catagory = $('#SELECT_MAIN_CATEGORY').val();
+       alert(catagory);
+      // AJAX request
+      $.ajax({
+        url:'<?= base_url().'SubSubCategory/fetch_subcatagory';?>',
+        method: 'post',
+        data: {catagory: catagory},
+        success: function(response){
+         alert(response);
+         $('#get_subcategory_output').html(response);
+       }
+     });
+     });
+    });
+
+   
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+ <script type="text/javascript">
+  $(document).ready(function(){
+    $('#success-alert').fadeIn().delay(1000).fadeOut();
+    $('#danger-alert').fadeIn().delay(1000).fadeOut();
+  });
+ </script>
+</html>
